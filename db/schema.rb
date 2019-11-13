@@ -15,7 +15,16 @@ ActiveRecord::Schema.define(version: 20191112233316) do
   create_table "definitions", force: :cascade do |t|
     t.integer "word_id"
     t.integer "user_id"
-    t.string  "record"
+    t.string  "record1"
+    t.string  "record2"
+    t.string  "record3"
+    t.string  "record4"
+    t.string  "record5"
+    t.string  "record6"
+    t.string  "record7"
+    t.string  "record8"
+    t.string  "record9"
+    t.string  "record10"
   end
 
   create_table "users", force: :cascade do |t|

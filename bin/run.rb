@@ -1,9 +1,9 @@
-require_relative '../config/environment'
+require_relative '/Users/flatironschool/Desktop/Ruby, coding/ruby-project-guidelines-seattle-web-102819/config/environment.rb'
 
 
 
-puts "HELLO WORLD"
+CoreProgramMethods.initiate
 
-word = RandomWord.nouns.next
 
-puts word
+
+
