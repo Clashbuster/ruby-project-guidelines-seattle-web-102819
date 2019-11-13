@@ -1,2 +1,2 @@
-class User < ActiveRecord::Base
+class Word < ActiveRecord::Base
 end

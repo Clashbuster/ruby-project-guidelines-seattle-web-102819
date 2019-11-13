@@ -10,6 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20191112233316) do
+
+  create_table "definitions", force: :cascade do |t|
+    t.integer "word_id"
+    t.integer "user_id"
+    t.string  "record"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string  "name"
+    t.integer "age"
+    t.integer "number_of_propositions"
+  end
+
+  create_table "words", force: :cascade do |t|
+    t.string  "name"
+    t.integer "word_length"
+    t.integer "num_of_definitions"
+  end
 
 end
