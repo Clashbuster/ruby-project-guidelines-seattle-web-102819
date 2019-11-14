@@ -21,30 +21,27 @@ end
 
 # displays basic menu that every screen other than the title and main manu will have
 def return_menu
-    puts ""
-    puts "'1' Return to main menu"
+    puts "'9' Return to main menu"
     puts ""
     puts "'!' Exit the program"
     puts ""
 end
 
-
-
-
-#turcoman
+def variable_screen_title(title)
+        puts "------------------------------------------"
+        puts "          #{title}          "
+        puts "------------------------------------------"
+        puts ""
+end
 
 
 
 class CoreProgramMethods
 
     def self.find_word_definition
-        15.times do
-            puts ""
-        end
+       new_white_space
 
-        puts " ---------------------------"
-        puts "|        FIND A WORD        |"
-        puts " ---------------------------"
+        variable_screen_title("FIND A WORD")
 
         return_menu
 
@@ -52,7 +49,7 @@ class CoreProgramMethods
 
         while true
         input = gets.chomp.downcase
-        if input == "1"
+        if input == "9"
             CoreProgramMethods.main_menu
         elsif input == "!"
             CoreProgramMethods.terminate
@@ -84,12 +81,10 @@ class CoreProgramMethods
 
         definitions_to_display = find_strings_from_response(definition_response)
 
-        15.times do
-            puts ""
-        end
-        puts " ---------------------------"
-        puts "       #{found_word}        "
-        puts " ---------------------------"
+        new_white_space
+
+        variable_screen_title(found_word)
+
         i = 0
         definitions_to_display.length.times do
             puts "*********************"
@@ -97,13 +92,17 @@ class CoreProgramMethods
             i += 1
         end
             puts "*********************"
+            puts ""
 
        return_menu
+       puts "'?' Find another word"
 
         while true
             input = gets.chomp.downcase
-            if input == "1"
+            if input == "9"
                 CoreProgramMethods.main_menu
+            elsif input == "?"
+                CoreProgramMethods.find_word_definition
             elsif input == "!"
                 CoreProgramMethods.terminate
             else
@@ -125,28 +124,144 @@ class CoreProgramMethods
     end
 
     def self.remove_account
-        15.times do
-            puts ""
+        new_white_space
+        variable_screen_title("REMOVE ACCOUNT?")
+        puts "'1' Delete account forever and exit program"
+        puts ""
+        puts "'2' Go back to main menu"
+
+        while true
+            input = gets.chomp.downcase
+            if input == "1"
+                a = @current_user.id
+                User.destroy_all(a)
+                CoreProgramMethods.terminate
+            elsif input == "2"
+                CoreProgramMethods.main_menu
+            else
+                puts "That is not a selection"
+            end
         end
+
     end
 
     def self.account_information
-        15.times do
-            puts ""
+        new_white_space
+        variable_screen_title("ACCOUNT INFORMATION")
+        puts ""
+        puts "Username: " + @current_user.name.to_s
+        puts ""
+        puts "Age: " + @current_user.age.to_s
+        puts ""
+        puts "Number of contributions: " + @current_user.number_of_propositions.to_s
+        puts ""
+        puts "Bio: " + @current_user.bio.to_s
+        puts ""
+        puts "------------------------------------------"
+        puts ""
+
+        return_menu
+        puts "'1' Update username"
+        puts ""
+        puts "'2' Update age"
+        puts ""
+        puts "'3' Update bio"
+
+        while true
+            input = gets.chomp.downcase
+            if input == "9"
+                CoreProgramMethods.main_menu
+            elsif input == "!"
+                CoreProgramMethods.terminate
+            elsif input == "1"
+                CoreProgramMethods.update_username
+            elsif input == "2"
+                CoreProgramMethods.update_age
+            elsif input == "3"
+                CoreProgramMethods.update_bio
+            else
+                puts "That is not a selection"
+            end
+        end
+        
+    end
+
+    def self.update_username
+        new_white_space
+        return_menu
+
+        puts "please create a new username"
+        puts ""
+
+        while true
+            input = gets.chomp.downcase
+            if input == "9"
+                CoreProgramMethods.main_menu
+            elsif input == "!"
+                CoreProgramMethods.terminate
+            elsif User.exists?(name: input)
+                new_white_space
+                return_menu
+                puts "That username is already taken"
+            elsif
+                @current_user.name = input
+                @current_user.save
+                CoreProgramMethods.account_information
+            end
+        end
+    end
+
+    def self.update_age
+        new_white_space
+        return_menu
+        puts "Please enter in a correct age"
+        puts ""
+
+        while true
+            input = gets.chomp.downcase
+            if input == "9"
+                CoreProgramMethods.main_menu
+            elsif input == "!"
+                CoreProgramMethods.terminate
+            elsif 
+                @current_user.age = input
+                @current_user.save
+                CoreProgramMethods.account_information
+            end
+        end
+    end
+
+    def self.update_bio
+        new_white_space
+        return_menu
+        puts "Please fill out a new Bio"
+        puts ""
+
+        while true
+            input = gets.chomp.downcase
+            if input == "9"
+                CoreProgramMethods.main_menu
+            elsif input == "!"
+                CoreProgramMethods.terminate
+            elsif 
+                @current_user.bio = input
+                @current_user.save
+                CoreProgramMethods.account_information
+            end
         end
     end
 
     def self.terminate
-        abort "Goodbye"
+        new_white_space
+        variable_screen_title("GOODBYE")
+        abort
     end
 
      def self.main_menu
-        15.times do
-            puts ""
-        end
-        puts " ---------------------------"
-        puts "|        MAIN MENU          |"
-        puts " ---------------------------"
+        new_white_space
+
+        variable_screen_title("MAIN MENU")
+
         puts ""
         puts "'1' Look up a word"
         puts ""
@@ -182,14 +297,18 @@ class CoreProgramMethods
     
     def self.initiate
         new_white_space
-        puts " ---------------------------"
-        puts "|        WIKTIONARY         |"
-        puts " ---------------------------"
-        puts ""
-        puts "Please begin by entering in your name"
+        
+        variable_screen_title("WIKTIONARY")
+        
+        10.times do
+            puts ""
+        end
+        puts "Please begin by entering in a Username"
+
+
         input = gets.chomp.downcase
         if User.exists?(name: input)
-            @current_user = User.update(name: input)
+            @current_user = User.find_by(name: input)
         else
             @current_user = User.create(name: input)
         end

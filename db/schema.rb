@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191112233316) do
+ActiveRecord::Schema.define(version: 20191114195705) do
 
   create_table "definitions", force: :cascade do |t|
     t.integer "word_id"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20191112233316) do
     t.string  "name"
     t.integer "age"
     t.integer "number_of_propositions"
+    t.string  "bio"
   end
 
   create_table "words", force: :cascade do |t|

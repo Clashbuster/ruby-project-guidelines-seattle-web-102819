@@ -28,6 +28,16 @@ require_relative '/Users/flatironschool/Desktop/Ruby, coding/ruby-project-guidel
 #     puts "*********************"
 # end
 
+# puts "yo" + nil.to_s
+
+# puts "yo" + "no".to_s
+
+# a = User.update(name: "taylor")
+# b = User.create(name: "joe")
+
+# p a[1]
+# p b
+
 
 
 
