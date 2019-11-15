@@ -21,7 +21,7 @@ end
 
 # displays basic menu that nearly every screen in the program will have
 def return_menu
-    puts "'9' Return to main menu"
+    puts "'.' Return to main menu"
     puts ""
     puts "'!' Exit the program"
     puts ""
@@ -53,7 +53,7 @@ class CoreProgramMethods
 
         while true
         input = gets.chomp.downcase
-        if input == "9"
+        if input == "."
             CoreProgramMethods.main_menu
         elsif input == "!"
             CoreProgramMethods.terminate
@@ -68,6 +68,7 @@ class CoreProgramMethods
            return_menu
 
             puts "That word does not currently exist in the dictionary"
+            puts ""
             end
         end
     end
@@ -78,8 +79,9 @@ class CoreProgramMethods
         found_word = @word_to_display.name
         word_id = @word_to_display.id
 
-        # assigns the response from the database into a variable
+        # assigns the response from the database into a several variables
         definition_response = Definition.find_by(word_id: word_id)
+        @current_definition = Definition.find_by(word_id: word_id)
         
         #injects the definitions into a nice array
 
@@ -100,22 +102,415 @@ class CoreProgramMethods
             puts ""
 
        return_menu
-       puts "'?' Find another word"
-        puts ""
+            puts "'1' Find another word"
+            puts ""
+            puts "'2' Edit or add a definition"
+            puts ""
+
         while true
             input = gets.chomp.downcase
-            if input == "9"
+            if input == "."
                 CoreProgramMethods.main_menu
-            elsif input == "?"
+            elsif input == "1"
                 CoreProgramMethods.find_word_definition
+            elsif input == "2"
+                CoreProgramMethods.edit_definitions
             elsif input == "!"
                 CoreProgramMethods.terminate
             else
                 puts "That is not a selection"
+                puts ""
             end
         end
     end
     
+    def self.edit_definitions
+        new_white_space
+        variable_screen_title(@word_to_display.name)
+        
+        puts "Record1: " + @current_definition.record1.to_s
+        puts ""
+        puts "Record2: " + @current_definition.record2.to_s
+        puts ""
+        puts "Record3: " + @current_definition.record3.to_s
+        puts ""
+        puts "Record4: " + @current_definition.record4.to_s
+        puts ""
+        puts "Record5: " + @current_definition.record5.to_s
+        puts ""
+        puts "Record6: " + @current_definition.record6.to_s
+        puts ""
+        puts "Record7: " + @current_definition.record7.to_s
+        puts ""
+        puts "Record8: " + @current_definition.record8.to_s
+        puts ""
+        puts "Record9: " + @current_definition.record9.to_s
+        puts ""
+        puts "Record10: " + @current_definition.record10.to_s
+        puts ""
+        return_menu
+        puts "Please select the definition you would like to edit '1...10'"
+        puts ""
+
+        while true
+            input = gets.chomp.downcase
+            if input == "."
+                CoreProgramMethods.main_menu
+            elsif input == "!"
+                CoreProgramMethods.terminate
+            elsif input == "1"
+                CoreProgramMethods.update_record1
+            elsif input == "2"
+                CoreProgramMethods.update_record2
+            elsif input == "3"
+                CoreProgramMethods.update_record3
+            elsif input == "4"
+                CoreProgramMethods.update_record4
+            elsif input == "5"
+                CoreProgramMethods.update_record5
+            elsif input == "6"
+                CoreProgramMethods.update_record6
+            elsif input == "7"
+                CoreProgramMethods.update_record7
+            elsif input == "8"
+                CoreProgramMethods.update_record8
+            elsif input == "9"
+                CoreProgramMethods.update_record9
+            elsif input == "10"
+                CoreProgramMethods.update_record10
+            else
+                puts "That is not a selection"
+                puts ""
+            end
+        end
+    end
+
+    def self.update_record1
+        new_white_space
+        variable_screen_title(@word_to_display.name)
+        return_menu
+        puts "Record1: " + @current_definition.record1.to_s
+        puts ""
+        puts "Please propose a new entry for Record1"
+        puts ""
+
+        while true
+            input = gets.chomp.downcase
+            if input == "."
+                CoreProgramMethods.main_menu
+            elsif input == "!"
+                CoreProgramMethods.terminate
+            elsif input == @current_definition.record1
+                puts "That definition already exists"
+            else
+                @current_definition.record1 = input
+                @current_definition.save
+                    if @current_user.number_of_propositions == nil
+                        @current_user.number_of_propositions = 1
+                    else
+                        @current_user.number_of_propositions += 1
+                    end
+                    @current_user.save
+                CoreProgramMethods.display_word
+            end
+        end
+    end
+
+    def self.update_record2
+        new_white_space
+        variable_screen_title(@word_to_display.name)
+        return_menu
+        puts "Record2: " + @current_definition.record2.to_s
+        puts ""
+        puts "Please propose a new entry for Record2"
+        puts ""
+
+        while true
+            input = gets.chomp.downcase
+            if input == "."
+                CoreProgramMethods.main_menu
+            elsif input == "!"
+                CoreProgramMethods.terminate
+            elsif input == @current_definition.record2
+                puts "That definition already exists"
+                puts ""
+            else
+                @current_definition.record2 = input
+                @current_definition.save
+                    if @current_user.number_of_propositions == nil
+                        @current_user.number_of_propositions = 1
+                    else
+                        @current_user.number_of_propositions += 1
+                    end
+                    @current_user.save
+                CoreProgramMethods.display_word
+            end
+        end
+    end
+
+    def self.update_record3
+        new_white_space
+        variable_screen_title(@word_to_display.name)
+        return_menu
+        puts "Record3: " + @current_definition.record3.to_s
+        puts ""
+        puts "Please propose a new entry for Record3"
+        puts ""
+
+        while true
+            input = gets.chomp.downcase
+            if input == "."
+                CoreProgramMethods.main_menu
+            elsif input == "!"
+                CoreProgramMethods.terminate
+            elsif input == @current_definition.record3
+                puts "That definition already exists"
+                puts ""
+            else
+                @current_definition.record3 = input
+                @current_definition.save
+                    if @current_user.number_of_propositions == nil
+                        @current_user.number_of_propositions = 1
+                    else
+                        @current_user.number_of_propositions += 1
+                    end
+                    @current_user.save
+                CoreProgramMethods.display_word
+            end
+        end
+    end
+
+    def self.update_record4
+        new_white_space
+        variable_screen_title(@word_to_display.name)
+        return_menu
+        puts "Record4: " + @current_definition.record4.to_s
+        puts ""
+        puts "Please propose a new entry for Record4"
+        puts ""
+
+        while true
+            input = gets.chomp.downcase
+            if input == "."
+                CoreProgramMethods.main_menu
+            elsif input == "!"
+                CoreProgramMethods.terminate
+            elsif input == @current_definition.record4
+                puts "That definition already exists"
+                puts ""
+            else
+                @current_definition.record4 = input
+                @current_definition.save
+                    if @current_user.number_of_propositions == nil
+                        @current_user.number_of_propositions = 1
+                    else
+                        @current_user.number_of_propositions += 1
+                    end
+                    @current_user.save
+                CoreProgramMethods.display_word
+            end
+        end
+    end
+
+    def self.update_record5
+        new_white_space
+        variable_screen_title(@word_to_display.name)
+        return_menu
+        puts "Record5: " + @current_definition.record5.to_s
+        puts ""
+        puts "Please propose a new entry for Record5"
+        puts ""
+
+        while true
+            input = gets.chomp.downcase
+            if input == "."
+                CoreProgramMethods.main_menu
+            elsif input == "!"
+                CoreProgramMethods.terminate
+            elsif input == @current_definition.record5
+                puts "That definition already exists"
+                puts ""
+            else
+                @current_definition.record5 = input
+                @current_definition.save
+                    if @current_user.number_of_propositions == nil
+                        @current_user.number_of_propositions = 1
+                    else
+                        @current_user.number_of_propositions += 1
+                    end
+                    @current_user.save
+                CoreProgramMethods.display_word
+            end
+        end
+    end
+
+    def self.update_record6
+        new_white_space
+        variable_screen_title(@word_to_display.name)
+        return_menu
+        puts "Record6: " + @current_definition.record6.to_s
+        puts ""
+        puts "Please propose a new entry for Record6"
+        puts ""
+
+        while true
+            input = gets.chomp.downcase
+            if input == "."
+                CoreProgramMethods.main_menu
+            elsif input == "!"
+                CoreProgramMethods.terminate
+            elsif input == @current_definition.record6
+                puts "That definition already exists"
+                puts ""
+            else
+                @current_definition.record6 = input
+                @current_definition.save
+                    if @current_user.number_of_propositions == nil
+                        @current_user.number_of_propositions = 1
+                    else
+                        @current_user.number_of_propositions += 1
+                    end
+                    @current_user.save
+                CoreProgramMethods.display_word
+            end
+        end
+    end
+
+    def self.update_record7
+        new_white_space
+        variable_screen_title(@word_to_display.name)
+        return_menu
+        puts "Record7: " + @current_definition.record7.to_s
+        puts ""
+        puts "Please propose a new entry for Record7"
+        puts ""
+
+        while true
+            input = gets.chomp.downcase
+            if input == "."
+                CoreProgramMethods.main_menu
+            elsif input == "!"
+                CoreProgramMethods.terminate
+            elsif input == @current_definition.record7
+                puts "That definition already exists"
+                puts ""
+            else
+                @current_definition.record7 = input
+                @current_definition.save
+                    if @current_user.number_of_propositions == nil
+                        @current_user.number_of_propositions = 1
+                    else
+                        @current_user.number_of_propositions += 1
+                    end
+                    @current_user.save
+                CoreProgramMethods.display_word
+            end
+        end
+    end
+
+    def self.update_record8
+        new_white_space
+        variable_screen_title(@word_to_display.name)
+        return_menu
+        puts "Record8: " + @current_definition.record8.to_s
+        puts ""
+        puts "Please propose a new entry for Record8"
+        puts ""
+
+        while true
+            input = gets.chomp.downcase
+            if input == "."
+                CoreProgramMethods.main_menu
+            elsif input == "!"
+                CoreProgramMethods.terminate
+            elsif input == @current_definition.record8
+                puts "That definition already exists"
+                puts ""
+            else
+                @current_definition.record8 = input
+                @current_definition.save
+                    if @current_user.number_of_propositions == nil
+                        @current_user.number_of_propositions = 1
+                    else
+                        @current_user.number_of_propositions += 1
+                    end
+                    @current_user.save
+                CoreProgramMethods.display_word
+            end
+        end
+    end
+
+    def self.update_record9
+        new_white_space
+        variable_screen_title(@word_to_display.name)
+        return_menu
+        puts "Record9: " + @current_definition.record9.to_s
+        puts ""
+        puts "Please propose a new entry for Record9"
+        puts ""
+
+        while true
+            input = gets.chomp.downcase
+            if input == "."
+                CoreProgramMethods.main_menu
+            elsif input == "!"
+                CoreProgramMethods.terminate
+            elsif input == @current_definition.record9
+                puts "That definition already exists"
+                puts ""
+            else
+                @current_definition.record9 = input
+                @current_definition.save
+                    if @current_user.number_of_propositions == nil
+                        @current_user.number_of_propositions = 1
+                    else
+                        @current_user.number_of_propositions += 1
+                    end
+                    @current_user.save
+                CoreProgramMethods.display_word
+            end
+        end
+    end
+
+    def self.update_record10
+        new_white_space
+        variable_screen_title(@word_to_display.name)
+        return_menu
+        puts "Record10: " + @current_definition.record10.to_s
+        puts ""
+        puts "Please propose a new entry for Record10"
+        puts ""
+
+        while true
+            input = gets.chomp.downcase
+            if input == "."
+                CoreProgramMethods.main_menu
+            elsif input == "!"
+                CoreProgramMethods.terminate
+            elsif input == @current_definition.record10
+                puts "That definition already exists"
+                puts ""
+            else
+                @current_definition.record10 = input
+                @current_definition.save
+                    if @current_user.number_of_propositions == nil
+                        @current_user.number_of_propositions = 1
+                    else
+                        @current_user.number_of_propositions += 1
+                    end
+                    @current_user.save
+                CoreProgramMethods.display_word
+            end
+        end
+    end
+
+
+
+
+
+
+
+
     def self.propose_word
         new_white_space
         variable_screen_title("PROPOSE A NEW WORD")
@@ -125,7 +520,7 @@ class CoreProgramMethods
 
         while true
             input = gets.chomp.downcase
-            if input == "9"
+            if input == "."
                 CoreProgramMethods.main_menu
             elsif input == "!"
                 CoreProgramMethods.terminate
@@ -133,6 +528,7 @@ class CoreProgramMethods
                 new_white_space
                 return_menu
                 puts "That word already exists"
+                puts ""
             else
                 word_length = input.split(//).length
                 @word_to_display = Word.create(name: input, word_length: word_length)
@@ -151,17 +547,18 @@ class CoreProgramMethods
         new_white_space
         return_menu
         puts "Please assign a definition to the word you have proposed"
+        puts ""
 
         while true
             input = gets.chomp.downcase
-            if input == "9"
+            if input == "."
                 CoreProgramMethods.main_menu
             elsif input == "!"
                 CoreProgramMethods.terminate
             else
                 word_id = @word_to_display.id
                 user_id = @current_user.id
-                Definition.create(word_id: word_id, user_id: user_id, record1: input)
+                @current_definition = Definition.create(word_id: word_id, user_id: user_id, record1: input)
                 @current_user.number_of_propositions += 1
                 @current_user.save
                 CoreProgramMethods.display_word
@@ -179,6 +576,7 @@ class CoreProgramMethods
         puts "'1' Delete account forever and exit program"
         puts ""
         puts "'2' Go back to main menu"
+        puts ""
 
         while true
             input = gets.chomp.downcase
@@ -190,6 +588,7 @@ class CoreProgramMethods
                 CoreProgramMethods.main_menu
             else
                 puts "That is not a selection"
+                puts ""
             end
         end
 
@@ -215,10 +614,11 @@ class CoreProgramMethods
         puts "'2' Update age"
         puts ""
         puts "'3' Update bio"
+        puts ""
 
         while true
             input = gets.chomp.downcase
-            if input == "9"
+            if input == "."
                 CoreProgramMethods.main_menu
             elsif input == "!"
                 CoreProgramMethods.terminate
@@ -230,6 +630,7 @@ class CoreProgramMethods
                 CoreProgramMethods.update_bio
             else
                 puts "That is not a selection"
+                puts ""
             end
         end
         
@@ -244,7 +645,7 @@ class CoreProgramMethods
 
         while true
             input = gets.chomp.downcase
-            if input == "9"
+            if input == "."
                 CoreProgramMethods.main_menu
             elsif input == "!"
                 CoreProgramMethods.terminate
@@ -252,6 +653,7 @@ class CoreProgramMethods
                 new_white_space
                 return_menu
                 puts "That username is already taken"
+                puts ""
             elsif
                 @current_user.name = input
                 @current_user.save
@@ -268,7 +670,7 @@ class CoreProgramMethods
 
         while true
             input = gets.chomp.downcase
-            if input == "9"
+            if input == "."
                 CoreProgramMethods.main_menu
             elsif input == "!"
                 CoreProgramMethods.terminate
@@ -288,7 +690,7 @@ class CoreProgramMethods
 
         while true
             input = gets.chomp.downcase
-            if input == "9"
+            if input == "."
                 CoreProgramMethods.main_menu
             elsif input == "!"
                 CoreProgramMethods.terminate
@@ -324,7 +726,7 @@ class CoreProgramMethods
         puts "'4' Account information"
         puts ""
         puts "'!' Exit the program"
-        puts 
+        puts ""
         
         while true do
         input = gets.chomp.downcase
@@ -340,6 +742,7 @@ class CoreProgramMethods
                 CoreProgramMethods.terminate
             else
                 puts "That is not a selection"
+                puts ""
             end
         end
     end
@@ -353,7 +756,7 @@ class CoreProgramMethods
             puts ""
         end
         puts "Please begin by entering in a Username"
-
+        puts ""
 
         input = gets.chomp.downcase
         if User.exists?(name: input)
@@ -363,9 +766,5 @@ class CoreProgramMethods
         end
         CoreProgramMethods.main_menu
     end
-
-
-
-
 
 end

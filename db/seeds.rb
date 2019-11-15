@@ -53,7 +53,8 @@ persist_data(data_hash)
 # it takes approximately 7 minutes to seed this database on my machine (macbook air)
 # There are 102,216 word instances in this database which contain at least one definition
 # If this database was a book it would be approximately 5,525 pages long containing 2,762,500 words
-# this database contains approximately 60% of all english words in circulation
+# that's right, this database is about 4.7 lords of the rings.
+# it contains approximately 60% of all english words in circulation and is functional as a real dictionary
 
 
 
