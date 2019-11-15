@@ -1,4 +1,4 @@
-#helper functions
+#helper functions vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 # injects the string(s) from a database response into a nice array
 def find_strings_from_response(hash)
@@ -19,7 +19,7 @@ def new_white_space
     end
 end
 
-# displays basic menu that every screen other than the title and main manu will have
+# displays basic menu that nearly every screen in the program will have
 def return_menu
     puts "'9' Return to main menu"
     puts ""
@@ -27,6 +27,7 @@ def return_menu
     puts ""
 end
 
+# puts a variable screen title to the screen
 def variable_screen_title(title)
         puts "------------------------------------------"
         puts "          #{title}          "
@@ -34,7 +35,7 @@ def variable_screen_title(title)
         puts ""
 end
 
-
+#helper functions ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 class CoreProgramMethods
 
@@ -42,10 +43,13 @@ class CoreProgramMethods
        new_white_space
 
         variable_screen_title("FIND A WORD")
-
+        10.times do
+            puts ""
+        end
         return_menu
 
         puts "please enter the word you would like to find"
+        puts ""
 
         while true
         input = gets.chomp.downcase
@@ -63,7 +67,7 @@ class CoreProgramMethods
 
            return_menu
 
-            puts "word does not currently exist in the dictionary"
+            puts "That word does not currently exist in the dictionary"
             end
         end
     end
@@ -89,6 +93,7 @@ class CoreProgramMethods
         definitions_to_display.length.times do
             puts "*********************"
             puts "#{i + 1}: " + definitions_to_display[i]
+            puts ""
             i += 1
         end
             puts "*********************"
@@ -96,7 +101,7 @@ class CoreProgramMethods
 
        return_menu
        puts "'?' Find another word"
-
+        puts ""
         while true
             input = gets.chomp.downcase
             if input == "9"
@@ -112,20 +117,65 @@ class CoreProgramMethods
     end
     
     def self.propose_word
-        15.times do
-            puts ""
+        new_white_space
+        variable_screen_title("PROPOSE A NEW WORD")
+        return_menu
+        puts "Please give us a word to propose"
+        puts ""
+
+        while true
+            input = gets.chomp.downcase
+            if input == "9"
+                CoreProgramMethods.main_menu
+            elsif input == "!"
+                CoreProgramMethods.terminate
+            elsif Word.exists?(name: input)
+                new_white_space
+                return_menu
+                puts "That word already exists"
+            else
+                word_length = input.split(//).length
+                @word_to_display = Word.create(name: input, word_length: word_length)
+                if @current_user.number_of_propositions == nil
+                @current_user.number_of_propositions = 1
+                else
+                    @current_user.number_of_propositions += 1
+                end
+                @current_user.save
+                CoreProgramMethods.ask_for_definition
+            end
         end
     end
 
-    def self.propose_definition
-        15.times do
-            puts ""
+    def self.ask_for_definition
+        new_white_space
+        return_menu
+        puts "Please assign a definition to the word you have proposed"
+
+        while true
+            input = gets.chomp.downcase
+            if input == "9"
+                CoreProgramMethods.main_menu
+            elsif input == "!"
+                CoreProgramMethods.terminate
+            else
+                word_id = @word_to_display.id
+                user_id = @current_user.id
+                Definition.create(word_id: word_id, user_id: user_id, record1: input)
+                @current_user.number_of_propositions += 1
+                @current_user.save
+                CoreProgramMethods.display_word
+            end
         end
     end
+    
 
     def self.remove_account
         new_white_space
         variable_screen_title("REMOVE ACCOUNT?")
+        10.times do
+            puts ""
+        end
         puts "'1' Delete account forever and exit program"
         puts ""
         puts "'2' Go back to main menu"
@@ -134,7 +184,7 @@ class CoreProgramMethods
             input = gets.chomp.downcase
             if input == "1"
                 a = @current_user.id
-                User.destroy_all(a)
+                User.destroy_all(a.to_s)
                 CoreProgramMethods.terminate
             elsif input == "2"
                 CoreProgramMethods.main_menu
@@ -148,7 +198,6 @@ class CoreProgramMethods
     def self.account_information
         new_white_space
         variable_screen_title("ACCOUNT INFORMATION")
-        puts ""
         puts "Username: " + @current_user.name.to_s
         puts ""
         puts "Age: " + @current_user.age.to_s
@@ -254,6 +303,9 @@ class CoreProgramMethods
     def self.terminate
         new_white_space
         variable_screen_title("GOODBYE")
+        10.times do
+            puts ""
+        end
         abort
     end
 
@@ -267,13 +319,12 @@ class CoreProgramMethods
         puts ""
         puts "'2' Propose a new word"
         puts ""
-        puts "'3' Propose a new definition for an existing word"
+        puts "'3' Remove your account"
         puts ""
-        puts "'4' Remove your account"
-        puts ""
-        puts "'5' Account information"
+        puts "'4' Account information"
         puts ""
         puts "'!' Exit the program"
+        puts 
         
         while true do
         input = gets.chomp.downcase
@@ -282,10 +333,8 @@ class CoreProgramMethods
             elsif input == "2"
                 CoreProgramMethods.propose_word
             elsif input == "3"
-                CoreProgramMethods.propose_definition
-            elsif input == "4"
                 CoreProgramMethods.remove_account
-            elsif input == "5"
+            elsif input == "4"
                 CoreProgramMethods.account_information
             elsif input == "!"
                 CoreProgramMethods.terminate

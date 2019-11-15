@@ -46,10 +46,14 @@ persist_data(data_hash)
 # p sample_definition.split(/\d\. /)
 
 
+# *************************************
+# # important information to consider.
+# *************************************
 
-# important information to consider.
 # it takes approximately 7 minutes to seed this database on my machine (macbook air)
-# There are approximately 102,216 words in this database
+# There are 102,216 word instances in this database which contain at least one definition
+# If this database was a book it would be approximately 5,525 pages long containing 2,762,500 words
+# this database contains approximately 60% of all english words in circulation
 
 
 

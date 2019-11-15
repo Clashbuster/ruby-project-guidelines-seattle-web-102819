@@ -38,6 +38,8 @@ require_relative '/Users/flatironschool/Desktop/Ruby, coding/ruby-project-guidel
 # p a[1]
 # p b
 
+# Word.destroy_all(name: "fiddlebitches")
+
 
 
 
