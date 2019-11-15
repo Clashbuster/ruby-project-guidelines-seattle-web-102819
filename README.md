@@ -1,59 +1,69 @@
-# Module One Final Project Guidelines
+# Taylor's Wiktionary
 
-Congratulations, you're at the end of module one! You've worked crazy hard to get here and have learned a ton.
+This is my wiktionary
 
-For your final project, we'll be building a Command Line database application.
+## What is it?
 
-## Project Requirements
+For starters, it's a living, breathing, working dictionary. I put approximately 102,219 words and 220,000 definitions in this dictionary.
 
-### Option One - Data Analytics Project
+If it were a book it would be about 5525 pages long containing approximately 2,750,000 words.
 
-1. Access a Sqlite3 Database using ActiveRecord.
-2. You should have at minimum three models including one join model. This means you must have a many-to-many relationship.
-3. You should seed your database using data that you collect either from a CSV, a website by scraping, or an API.
-4. Your models should have methods that answer interesting questions about the data. For example, if you've collected info about movie reviews, what is the most popular movie? What movie has the most reviews?
-5. You should provide a CLI to display the return values of your interesting methods.  
-6. Use good OO design patterns. You should have separate classes for your models and CLI interface.
+This bad boy contains approximately 60% of all enlighs words in circulation.
 
-  **Resource:** [Easy Access APIs](https://github.com/learn-co-curriculum/easy-access-apis)
+But wait there's more! It's more than just a dictionary. It's a user generated, maintained, and edited dictionary. Users can sign in and edit existing definitions as well as propose their own words. It also keeps track of User data.
 
-### Option Two - Command Line CRUD App
+### Why does this need to exist?
 
-1. Access a Sqlite3 Database using ActiveRecord.
-2. You should have a minimum of three models.
-3. You should build out a CLI to give your user full CRUD ability for at least one of your resources. For example, build out a command line To-Do list. A user should be able to create a new to-do, see all todos, update a todo item, and delete a todo. Todos can be grouped into categories, so that a to-do has many categories and categories have many to-dos.
-4. Use good OO design patterns. You should have separate models for your runner and CLI interface.
+This is a useful tool because spoken languages are dynamically typed.
 
-### Brainstorming and Proposing a Project Idea
+Every word we use every day only means something because we have agreed it means something. We assume definitions for many different words and most of us have a relatively similar idea of what any given word means most of the time. That is, until we don't.
 
-Projects need to be approved prior to launching into them, so take some time to brainstorm project options that will fulfill the requirements above.  You must have a minimum of four [user stories](https://en.wikipedia.org/wiki/User_story) to help explain how a user will interact with your app.  A user story should follow the general structure of `"As a <role>, I want <goal/desire> so that <benefit>"`. In example, if we were creating an app to randomly choose nearby restaurants on Yelp, we might write:
+Many factors can create a rift in understanding. Intellectual, cultural, social, or geographical differences are the primary culprits.
 
-* As a user, I want to be able to enter my name to retrieve my records
-* As a user, I want to enter a location and be given a random nearby restaurant suggestion
-* As a user, I should be able to reject a suggestion and not see that restaurant suggestion again
-* As a user, I want to be able to save to and retrieve a list of favorite restaurant suggestions
+As programmers we should understand this more than most.
 
-## Instructions
+Consider this thought experiment: 
 
-1. Fork and clone this repository.
-2. Build your application. Make sure to commit early and commit often. Commit messages should be meaningful (clearly describe what you're doing in the commit) and accurate (there should be nothing in the commit that doesn't match the description in the commit message). Good rule of thumb is to commit every 3-7 mins of actual coding time. Most of your commits should have under 15 lines of code and a 2 line commit is perfectly acceptable.
-3. Make sure to create a good README.md with a short description, install instructions, a contributors guide and a link to the license for your code.
-4. Make sure your project checks off each of the above requirements.
-5. Prepare a video demo (narration helps!) describing how a user would interact with your working project.
-    * The video should:
-      - Have an overview of your project.(2 minutes max)
-6. Prepare a presentation to follow your video.(3 minutes max)
-    * Your presentation should:
-      - Describe something you struggled to build, and show us how you ultimately implemented it in your code.
-      - Discuss 3 things you learned in the process of working on this project.
-      - Address, if anything, what you would change or add to what you have today?
-      - Present any code you would like to highlight.   
-7. *OPTIONAL, BUT RECOMMENDED*: Write a blog post about the project and process.
+"I accessed the SQL database which contained many seperated instances of data that were stored as objects. Or were they hashes?"
 
----
-### Common Questions:
-- How do I turn off my SQL logger?
-```ruby
-# in config/environment.rb add this line:
-ActiveRecord::Base.logger = nil
-```
+If you said this to a brick layer he would have no idea what were saying even though you're using words that he has heard before. The layer knows that an object is a thing, like a baseball, and an instance is like a short period of time.
+
+You know what objects and instances mean in the context of programming, but the layman does not. This wiktionary offers an opportunity for all of these additional contexts to exist, but even more, allows the context to evolve faster than a written dictionary.
+
+
+
+### How is it made? + some structural information about the app
+
+This is a command line interface app.
+
+It uses active record which is superimposed over a three sqlite3 tables. Each table persists information but the primary information kept in each table is pertinent to the user, definition, and word.
+
+The various menu screens query the database in order to return information to the screen.
+
+The methods in the program exist within a class, and some information is stored temperarily in instance variables. This allows me to repeatedly reference some basic information that is only relevant to each instance of the program being run.
+
+For example, the current urser, current word to display, and current definitons to display are all kept in instance variables. Since there cannot be multiple users logged into one machine running one instance this was a convenient way to reference this data. 
+
+But, don't be mislead by the above statement. In theory, the method I am using to keep this instance information should not clash if seperate instances of the app were being run on different machines. (This is all very speculative talk considering the app is not connected to any sort of network to begin with.)
+
+
+
+### Some problems I ran into
+
+The biggest problem I had was after 6 hours of programming it becomes a little difficult to read, but I discovered if I muscle through it my instincts take over and the code I right still keeps working.
+
+Seeing that this is a command line interface app it is very difficult to have a good user experience where the user can input several inputs on a single screen. The best way I was able to combat this with my current knowledge was to simply put each entry on a seperate screen with redundant context outputted to the screen so the user would be able to keep track of what they were supposed to be entering.
+
+Other than that it was difficult to find seed data that did not require a lot of money. I was hell-bent on seeding my database with real data from a real dictionary because I wanted this to be a real app that would actually be useful. I accomplished that, but only after scouring the internet for a very long time until I found a collection of dictionary data that was not behind a paywall.
+
+Most high profile dictionaries (english oxford, websters, words, ect) require you to go through an API service that starts charging after 1000-2500 queries. Additionally, most of the API's could only be queried per word. Considering most dictionaries contain at least 60,000 words with definitions, you can see why those options were inadequate for a me (a student)
+
+My instructor helped me find an open souce dictionary on github and I used their files for seed data. (link for transparency)
+https://github.com/matthewreagan/WebstersEnglishDictionary
+
+
+## Conclusion
+
+This was a fun project and I'm glad it all works. I am positively stoked about the fact that this app is a real thing that is useful. If nothing else, it still operates as a good old fashioned dictionary. You can use it to check if your words in boggle or scrabble exist.
+
+Cheers.

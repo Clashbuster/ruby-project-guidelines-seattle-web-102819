@@ -1,6 +1,6 @@
 # require 'json'
 
-file = File.read('/Users/flatironschool/Desktop/Ruby, coding/ruby-project-guidelines-seattle-web-102819/db/dictionary.json')
+file = File.read('/Users/flatironschool/Desktop/Ruby, coding/Taylor_wiktionary/db/dictionary.json')
 data_hash = JSON.parse(file)
 
 #iterate over the entire dictionary which is a hash of k:v where key is the word and value is a list of definitions
